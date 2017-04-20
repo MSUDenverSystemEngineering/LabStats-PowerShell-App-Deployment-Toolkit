@@ -58,12 +58,12 @@ Try {
 	## Variables: Application
 	[string]$appVendor = ''
 	[string]$appName = 'LabStats'
-	[string]$appVersion = '6.0.61209.1'
+	[string]$appVersion = '7.17.309.1'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '01/13/2015'
+	[string]$appScriptDate = '04/20/2017'
 	[string]$appScriptAuthor = 'Jordan Hamilton'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
@@ -78,8 +78,8 @@ Try {
 
 	## Variables: Script
 	[string]$deployAppScriptFriendlyName = 'Deploy Application'
-	[version]$deployAppScriptVersion = [version]'3.6.8'
-	[string]$deployAppScriptDate = '02/06/2016'
+	[version]$deployAppScriptVersion = [version]'3.6.9'
+	[string]$deployAppScriptDate = '02/12/2017'
 	[hashtable]$deployAppScriptParameters = $psBoundParameters
 
 	## Variables: Environment
@@ -132,7 +132,8 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-		Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden"
+		$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -151,7 +152,7 @@ Try {
 		##*===============================================
 		[string]$installPhase = 'Pre-Uninstallation'
 
-		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
+		## Show Welcome Message, close LabStats with a 60 second countdown before automatically closing
 		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
@@ -172,7 +173,8 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-		Execute-Process -Path "$dirSupportFiles\LabStatsCleaner.exe" -PassThru -WindowStyle "Hidden"
+		$exitCode = Execute-Process -Path "$dirSupportFiles\LabStatsCleaner.exe" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* POST-UNINSTALLATION
@@ -181,7 +183,7 @@ Try {
 
 		## <Perform Post-Uninstallation tasks here>
 
-		
+
 	}
 
 	##*===============================================
@@ -202,8 +204,8 @@ Catch {
 # SIG # Begin signature block
 # MIIU4wYJKoZIhvcNAQcCoIIU1DCCFNACAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCBX41h09WZddXBX
-# xJDgLafuIJdhlwSK2jQnABWGUXwVaqCCD4cwggQUMIIC/KADAgECAgsEAAAAAAEv
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCD3GOyjoutEhF6M
+# vaNsdGlIkWhQwhQvVgCE6eWBX46SWqCCD4cwggQUMIIC/KADAgECAgsEAAAAAAEv
 # TuFS1zANBgkqhkiG9w0BAQUFADBXMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xv
 # YmFsU2lnbiBudi1zYTEQMA4GA1UECxMHUm9vdCBDQTEbMBkGA1UEAxMSR2xvYmFs
 # U2lnbiBSb290IENBMB4XDTExMDQxMzEwMDAwMFoXDTI4MDEyODEyMDAwMFowUjEL
@@ -290,26 +292,26 @@ Catch {
 # FgNlZHUxGTAXBgoJkiaJk/IsZAEZFgltc3VkZW52ZXIxFTATBgoJkiaJk/IsZAEZ
 # FgV3aW5hZDEZMBcGA1UEAxMQd2luYWQtVk1XQ0EwMS1DQQITfwAAACITuo77mvOv
 # 9AABAAAAIjANBglghkgBZQMEAgEFAKBmMBgGCisGAQQBgjcCAQwxCjAIoAKAAKEC
-# gAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwLwYJKoZIhvcNAQkEMSIEIBTx
-# mt1maxOqSLvhs4Gh71zvyx4gkf7voe8DMBlbK9hLMA0GCSqGSIb3DQEBAQUABIIB
-# AG87d04eySHIN4968s7lF7O9yL75FA7iKo5B+J/6LPaJX0FpQ7B3sBTvNcce/775
-# 0VZPlsIwIueIstxiDGS3ZCNXpTos98e4sUZOnCNXgkBFKZOvUpOp5eXEi1qGyq6o
-# nKHx3Nd//7k9Ek46/MeCu3E2KJT10JLu+J9FSNqRQmbiOBTrh7U6bXcERCRsFypR
-# jmuu4x6s8b6ORsLIf/nSjJ/5URo9vTMZYBj9X7JI9EtSY5ZTDowXpe8zXYb56fof
-# p6ucTFc5O0sdsptUPiwWT3NuTq0oFFFWDM7Kbu8Y8P5nE4SMomxOmPA9WC2Q1clL
-# OXrJmU5UNnpWhdGbzgwUWJGhggKiMIICngYJKoZIhvcNAQkGMYICjzCCAosCAQEw
+# gAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwLwYJKoZIhvcNAQkEMSIEIIHW
+# gxVKPwburjjk+WIl0bJRexCfNLHz5isX2jJrDw1AMA0GCSqGSIb3DQEBAQUABIIB
+# AFbTzQkkcHMZEru2NHpTNCB0b9D8mT680XPFahVuB5HaJVqN5vtmTIRcBvJ5WIDR
+# bF4vjodHQ1V9Xp4wQAlxs4tzEVTrk2kbbrsgmAFarAwOflvs6ra0ijJF2CScfJAa
+# hQe4lHh1PyP3WcWk9VBOLbiUps16NDL9A5pG7+K48zbvvhsWRsLjKLV3NHTB+3em
+# WIafClFZzwP6mhcFh4eAgPJahQnkOL3jZBNO3bxfE7tBnFhBWf4ZnLB/PTWa+fHx
+# NqsF0hS+QgKjJeLICT4Db4C7BUTZ75ffTszXvBHi11i4ilpx16aJHP+KiXLyDyS9
+# SZxc2euh+qmXvD5ZC0Y4IP+hggKiMIICngYJKoZIhvcNAQkGMYICjzCCAosCAQEw
 # aDBSMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYG
 # A1UEAxMfR2xvYmFsU2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBHMgISESHWmadklz7x
 # +EJ+6RnMU0EUMAkGBSsOAwIaBQCggf0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
-# ATAcBgkqhkiG9w0BCQUxDxcNMTcwMTEzMTYyOTM0WjAjBgkqhkiG9w0BCQQxFgQU
-# 3AFreL5kGAiAlkyrABOTvRja9z8wgZ0GCyqGSIb3DQEJEAIMMYGNMIGKMIGHMIGE
+# ATAcBgkqhkiG9w0BCQUxDxcNMTcwNDIwMTYxNDU1WjAjBgkqhkiG9w0BCQQxFgQU
+# 786nr+dBrL4P03wX78JBlxSqc1cwgZ0GCyqGSIb3DQEJEAIMMYGNMIGKMIGHMIGE
 # BBRjuC+rYfWDkJaVBQsAJJxQKTPseTBsMFakVDBSMQswCQYDVQQGEwJCRTEZMBcG
 # A1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBUaW1l
 # c3RhbXBpbmcgQ0EgLSBHMgISESHWmadklz7x+EJ+6RnMU0EUMA0GCSqGSIb3DQEB
-# AQUABIIBAF66E+8b1pOaoOu3EQVe7hA3qfxDhkeWZ1qB679e6ngdUlaweN+XEMb5
-# 7zbfBEnS7t+JEggj9LxXgtcYhj/hu7ZV6qg/Q1eRiA/2bKyILj8/x5lRIFqoDv0o
-# 0CQVLJ1TDAvjJubeL6klbH7B2ZjtUklIfV2cW4LW7tv9Rj+S7DJKxocgPeyZg086
-# k9jOMMq9dtnP+lCaimRCjdQAJjARCZebriEwzjO9UuxAcZzi1ZL7QH7Rb+8kf0YD
-# VZonzHGFDuYfxMenqd+psLRG3yj1MCAsteDKuMo8pGpt2Ca3CU1kYAzKET6cTANB
-# m41ROC+BJWiY0N0sADS1aTsJOLSrhXY=
+# AQUABIIBAK8oGfM6HEr/2TtAePimnRz1EZbZ/XPGk/WHLsd2Y6jziuxV2O9904ve
+# dDhH7vr7/GzF8abA9eBHtwWunbPRSf4HqD2dZ+tbYfS+vchU8zJIhVSKUxnMqiw3
+# x3XG0iXz2VohG41GAyCnXkO3yotyiRW2Jkr0zi/n4C1yDk29/aDl444bCXkzgGk7
+# NoGuouwZ6BqUTkn2HDC0K4P9Ifyc1rxFt9UEzAICJJH7eIiDo+9gPwWgelP3/ODS
+# PgWjLT4QalFOxfK8wyaiaZgBaqwBG6nY4vRa/hCpCnyeIiCM7PS4dN+RYJJJNbGH
+# 19lhia0j2G6qiJOH0f1W7zlwQVRMKUI=
 # SIG # End signature block
