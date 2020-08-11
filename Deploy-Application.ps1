@@ -58,13 +58,13 @@ Try {
 	## Variables: Application
 	[string]$appVendor = ''
 	[string]$appName = 'LabStats'
-	[string]$appVersion = '7.17.309.1'
+	[string]$appVersion = '7.19.522.1'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '04/20/2017'
-	[string]$appScriptAuthor = 'Jordan Hamilton'
+	[string]$appScriptDate = '08/11/2020'
+	[string]$appScriptAuthor = 'James Hardy & Jordan Hamilton'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
