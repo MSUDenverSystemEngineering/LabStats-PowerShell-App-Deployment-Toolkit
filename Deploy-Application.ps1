@@ -67,7 +67,7 @@ Try {
 	## Variables: Application
 	[string]$appVendor = ''
 	[string]$appName = 'LabStats'
-	[string]$appVersion = '7.19.522.1'
+	[string]$appVersion = '8.20.930.1'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
