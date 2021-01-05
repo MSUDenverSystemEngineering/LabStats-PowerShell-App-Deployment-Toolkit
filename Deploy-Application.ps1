@@ -66,14 +66,14 @@ Try {
 	##*===============================================
 	## Variables: Application
 	[string]$appVendor = ''
-	[string]$appName = 'LabStats'
-	[string]$appVersion = '8.20.930.1'
+	[string]$appName = ''
+	[string]$appVersion = ''
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '12/21/2020'
-	[string]$appScriptAuthor = '<David Torres>'
+	[string]$appScriptDate = 'XX/XX/202X'
+	[string]$appScriptAuthor = '<author name>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -121,7 +121,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if required, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace -PersistPrompt -CloseAppsCountdown 60 
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -141,12 +141,10 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-		##=================================================================================================================================================
 		##$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 		##If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 		##==================================================================================================================================================
-		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" -Parameters "-silent -disablerss -licserverinfo `"::LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com/`"
-
+		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" -Parameters -silent -disablerss -licserverinfo `"::LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com/`"
 
 
 		##*===============================================
@@ -167,7 +165,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -187,9 +185,6 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-		$exitCode = Execute-Process -Path "$dirSupportFiles\LabStatsCleaner.exe" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
-		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
-
 
 
 		##*===============================================
@@ -252,8 +247,8 @@ Catch {
 # SIG # Begin signature block
 # MIIf2QYJKoZIhvcNAQcCoIIfyjCCH8YCAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAGlRAGOb1yslht
-# golqbNuNP2Wt6vWsWq/YpYQM1nSnDKCCGZwwggWuMIIElqADAgECAhAHA3HRD3la
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCA/P/NZ9GeNCY9e
+# PlzhHmSS5i+Lp5binIkAsOU5kbdm6qCCGZwwggWuMIIElqADAgECAhAHA3HRD3la
 # QHGZK5QHYpviMA0GCSqGSIb3DQEBCwUAMHwxCzAJBgNVBAYTAlVTMQswCQYDVQQI
 # EwJNSTESMBAGA1UEBxMJQW5uIEFyYm9yMRIwEAYDVQQKEwlJbnRlcm5ldDIxETAP
 # BgNVBAsTCEluQ29tbW9uMSUwIwYDVQQDExxJbkNvbW1vbiBSU0EgQ29kZSBTaWdu
@@ -395,29 +390,29 @@ Catch {
 # CxMISW5Db21tb24xJTAjBgNVBAMTHEluQ29tbW9uIFJTQSBDb2RlIFNpZ25pbmcg
 # Q0ECEAcDcdEPeVpAcZkrlAdim+IwDQYJYIZIAWUDBAIBBQCggYQwGAYKKwYBBAGC
 # NwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgor
-# BgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG9w0BCQQxIgQgkp9+V86z
-# Nl1ako6ZuCmZQvUGodDN/ZccAsP6FZAgEO0wDQYJKoZIhvcNAQEBBQAEggEAPA/v
-# UKntCLQovXQPE4zn/o1ez0ffnfx3LwjlX51NUdB8yL7oJF46aozq6CnyNg16sJkv
-# jBCszFW1Box0+LXvFot+u3jpu2yPHLHFHBJBkkhedgB0N/TIyNGLypQJjPuIDBfP
-# ihjtWPF1X9omEBV696U8Pey4ZgkYd/MYJ/xP0icQBk9stJk5GzczyWfhw7+RlHEN
-# pyUPGeNBRxjqYpHo+CqlK3CPxdOV692C0HxVSbzouXva1U4ZI2+wcVvc0vbraHbZ
-# vfABvHsDuxUic9VJDPylcAYKOTKuqpj2rD/qsBUL64MC+ioQ4E8RCGw9nN1CDyig
-# hh6CinXGW3S/t19Lj6GCA0wwggNIBgkqhkiG9w0BCQYxggM5MIIDNQIBATCBkjB9
+# BgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG9w0BCQQxIgQgkFvzbdCY
+# WQTKUocjbCvmtD1gJFmLoSDIqGl+d0DeBx0wDQYJKoZIhvcNAQEBBQAEggEAB/9I
+# in3M0nfsEWmcJzhg/BihdHB87Stuwi+GgTCDgUSguXEbD+MmPjugoZawHOtX0T/D
+# d6yc3z5cR2w/U60/qVOryAzUjPoGOTzHF7v0j1wApNIJXNEGuer9DdIM7/wlnRBV
+# raZet3AOSFWmQg33QFhHwno6Lrhc3FfXBxgyGkuLa+GPcHyrRky/LrqbiJB9HUSl
+# 0wD0jNai1vN6Wo5HprHCCA6KYGlFVliROquV7FUiksWHG3SBlSZixh5GhlsbLRGy
+# +YHFlj9/Ads9dgk1h2mvaTHnoV3omxkOf3ZKfhjxIBeVyk+r5l3r6+HjpptM+yzu
+# jUMh+ImNaS8hD/q4zaGCA0wwggNIBgkqhkiG9w0BCQYxggM5MIIDNQIBATCBkjB9
 # MQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
 # VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxJTAjBgNVBAMT
 # HFNlY3RpZ28gUlNBIFRpbWUgU3RhbXBpbmcgQ0ECEQCMd6AAj/TRsMY9nzpIg41r
 # MA0GCWCGSAFlAwQCAgUAoHkwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkq
-# hkiG9w0BCQUxDxcNMjEwMTA1MDIyODQ1WjA/BgkqhkiG9w0BCQQxMgQwDEPo2nVF
-# Yx0XqumzoyMJ7xlJEBvGJgmXRjGYqf7PYiiQfkzI61gmw/WyKG/f+RnzMA0GCSqG
-# SIb3DQEBAQUABIICAIBUEw/9na+b4hTKYm9Rb1j5S8S0dcetxfXDYNU6LwDaR4SQ
-# 2tb/kVTUfvhDuSOX1B05hcrPzedoQ5rMxZCfBRUJ5opoibmFkbTTxDsVPUKQlbNs
-# Xtyd+uiUTlBucz30quxojqf/5x4vI0NiAGg7zbEUZqZd3wD2DYrEfsp0JEY9CML/
-# dmYI+n1TrHu2yAYXKfQuF1yrs5b0sOhAVSMsdukcuPiwFtlpcjgqTMb/w2Nky45y
-# F76vgv7+rU51e9bkjFN/eu7vkxkLnrwE2y24yOoyMQXH8RszazC2bpkb1nxIpCpc
-# 1mC+fVi/7kDg84QRACp30n1aXwi5Kg+INevH1BfAkbA6R17H67FUd29DWWNrA5PR
-# xy/Wt8JMjUOA9RcLcc0oyGGiA2258tNg8xrR1uHzl3pSPR0CA2x/TCWOkniYpfzF
-# DUM5SbbJnL2o2HeCbJPWeCZ6ALxt2X3nC4EopHS3E7DThp+phXW5+zhRy/ciLVDo
-# 1NKVMKL2CIFoXMuKIR2RJCzj/nE6j0DuwiMadQpMQCfeEeMwzXbU8UDegqColLOn
-# mHhxlP2Wb1wki4hB0JYAAR64lJ+mf4zXk124OAwn/SWP6WlLmK7+ezO1hThy/ltR
-# es1gNxHsQkoRAe0X5Ut2R09K25MuHUZMpAaqR7CW0oRQELVHxPtMCU76qXWX
+# hkiG9w0BCQUxDxcNMjAxMjE3MjE0MjMxWjA/BgkqhkiG9w0BCQQxMgQw3a7SA0cy
+# g59A9vsk/JFE94BbpxyK3SoDJlGzUv8JkchICk0JpWOBBVa9U2gOtN9eMA0GCSqG
+# SIb3DQEBAQUABIICAAa+mcvb2qj+E2xajVgHIbhryw8oBkEDwm9Sv5pLRR36auvk
+# 27rVfKi7sjZDxKquGpPNzfzmtAbGMJlurpCV81Y5M0zTEc7npVNB3zgWARsYDs8W
+# 1MduH+YY/5ch7BH/7JuSLJl/Ae2qOL7q11DWkl06H+LAtBlU37CgWFYUiJZhbW9n
+# fadIzU3a3ojeek0sX65MfSALtTZu+wrLA3FAqdQUhAXvscAf88VtAF5ieNOx+TKu
+# bMuXSVGuqxbVj4lJoHDtxgZ+f9yNp2VYXOTrt7vL+cJVMXckl/OUfvf5/m+sO1p2
+# yzU+2/QLSBnvX/I07mvMoyU3vzFRrLcIHI0fc/JSx1ZPewa40FHEcskA0hwbJIHU
+# sLqYOZt1wAo3y5dM/4hqxRsj/tu5lVxQHsK7+nbwDi+C+5b7rb+GQ9AvchrN3H62
+# o/uwDN1QaswqY7V1mMo7HB7GtgehHtVM/zv56lBXRLJvpemblpb5mLmHmbywe8uL
+# Vq+2ItVALcVzMfcEiJSqT5AY21/R76WXp8X/eGbtDWVVdWyMpt7aEYK0SVEfGlBk
+# 0xYggbFQtTI9yRDe51/HFCGyrscWi0vw+rPn0R76BjVnq/fz55cx5E1a/21qCHa4
+# ehZw1F75xo4LzezPCmdbNShXccjNnFUCq19N/c02Tz/UeJ1EZ/FH64my6Amt
 # SIG # End signature block
