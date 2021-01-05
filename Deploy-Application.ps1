@@ -144,7 +144,7 @@ Try {
 		##$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 		##If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 		##==================================================================================================================================================
-		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" 
+		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" -AddParameters "'LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com'"
 
 		##*===============================================
 		##* POST-INSTALLATION
