@@ -66,14 +66,14 @@ Try {
 	##*===============================================
 	## Variables: Application
 	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
+	[string]$appName = 'Labstats'
+	[string]$appVersion = '8.20.1209.1'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = 'XX/XX/202X'
-	[string]$appScriptAuthor = '<author name>'
+	[string]$appScriptDate = '1/4/202X'
+	[string]$appScriptAuthor = '<David Torres>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -144,8 +144,7 @@ Try {
 		##$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 		##If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 		##==================================================================================================================================================
-		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" -Parameters -silent -disablerss -licserverinfo `"::LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com/`"
-
+		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" 
 
 		##*===============================================
 		##* POST-INSTALLATION
