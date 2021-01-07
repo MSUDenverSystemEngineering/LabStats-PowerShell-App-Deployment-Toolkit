@@ -60,7 +60,7 @@
 		<!-- Log path used for MSI logging. -->
 		<MSI_LogPathNoAdminRights>$envProgramData\Logs\Software</MSI_LogPathNoAdminRights>
 		<!-- Log path used for MSI logging when RequireAdmin is False. -->
-		<MSI_InstallParams>REBOOT=ReallySuppress /QB-!</MSI_InstallParams>
+		<MSI_InstallParams>REBOOT=ReallySuppress /QN-!</MSI_InstallParams>
 		<!-- Installation parameters used for non-silent MSI actions. -->
 		<MSI_SilentParams>REBOOT=ReallySuppress /QN</MSI_SilentParams>
 		<!-- Installation parameters used for silent MSI actions. -->
