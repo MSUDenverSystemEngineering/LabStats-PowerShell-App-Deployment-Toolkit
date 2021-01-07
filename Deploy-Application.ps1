@@ -66,13 +66,13 @@ Try {
 	##*===============================================
 	## Variables: Application
 	[string]$appVendor = ''
-	[string]$appName = 'Labstats'
-	[string]$appVersion = '8.20.1209.1'
+	[string]$appName = 'LabStats'
+	[string]$appVersion = ''
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '1/4/2020'
+	[string]$appScriptDate = '12/21/2020'
 	[string]$appScriptAuthor = '<David Torres>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
@@ -121,7 +121,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if required, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace -PersistPrompt -CloseAppsCountdown 60 
+		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -144,7 +144,7 @@ Try {
 		##$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 		##If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 		##==================================================================================================================================================
-		Execute-MSI -Action 'Install' -Path "$dirFiles\LabStats_Client_8.20.1209.1.msi" -AddParameters "'LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com'"
+		Execute-MSI -Action 'Install' -Path "LabStats_Client_8.20.1209.1.msi" -Parameters '"/qn LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com'""
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -184,6 +184,7 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
+		Execute-MSI -Action Uninstall -Path '{14F7E335-2D184F72-BCA7-FE6419DD847F}'
 
 
 		##*===============================================
