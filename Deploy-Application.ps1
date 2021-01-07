@@ -121,8 +121,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if required, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace -PersistPrompt
-
+		Show-InstallationWelcome -CloseApps 'labstatsclient,labstatsuserspace' -CheckDiskSpace 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
 
@@ -144,7 +143,7 @@ Try {
 		##$exitCode = Execute-Process -Path "LabStatsGO-${appVersion}.exe" -Parameters "--mode unattended" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 		##If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 		##==================================================================================================================================================
-		Execute-MSI -Action 'Install' -Path "LabStats_Client_8.20.1209.1.msi" -Parameters '"/qn LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com'""
+		Execute-MSI -Action Install -Path "LabStats_Client_8.20.1209.1.msi" -Parameters '"/qn LABSTATSCLIENTID=84addce7-ce7f-4c0f-9286-dfd4dc30b7b8 CLIENTSERVERADDRESS=https://wus-07.labstats.com'""
 
 		##*===============================================
 		##* POST-INSTALLATION
