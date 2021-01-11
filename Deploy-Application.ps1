@@ -67,8 +67,8 @@ Try {
 	## Variables: Application
 	[string]$appVendor = 'LabStats'
 	[string]$appName = 'LabStats'
-	[string]$appVersion = '8.10.1209.1'
-	[string]$appArch = 'x64,x86'
+	[string]$appVersion = '8.20.1209.1'
+	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
@@ -127,7 +127,7 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
-
+		Execute-Process -Path "$dirSupportFiles\LabStatsCleaner.exe" -PassThru -WindowStyle "Hidden" -WaitForMsiExec
 
 		##*===============================================
 		##* INSTALLATION
